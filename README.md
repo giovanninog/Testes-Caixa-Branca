@@ -1,7 +1,18 @@
-## Erros ⛔ 
-Na linha 15, a exceção não é tratada corretamene, pois o bloco catch está vazio, fazendo com que, caso uma exceção seja gerada, não haverá retorno nenhum.
-Na linha 19, a propriedade "nome" é pública, sendo possível modificá-lo em qualquer parte do projeto.
-Na linha 20, o mesmo problema do tópico anterior é válido para a propriedade result.
-Na linha 35, o mesmo problema do primeiro tópico se faz presente
-Outro problema do código, são os métodos da classe User, que deveriam ser apenas getters e setters, seguindo o Princípio da responsabilidade única do SOLID, o método de conexão com o banco deveria estar em uma classe dedicada para conexão com o banco
-Seguindo a ideia do tópico anterior, o método verificarUsuário deveria estar em uma classe de Serviços como UserService, dedicado a processos relacionados a classe usuário.
+
+
+# Erros
+
+- 1 Tratamento de Exceções
+O código apresenta a ausência de mensagens para tratamento de exceções, o que dificulta o diagnóstico de falhas. Para melhorar, é recomendável adicionar logs ou exibições de mensagens detalhadas nos blocos `catch`, como `e.printStackTrace()`.
+
+- 2 Falta de Fechamento da Conexão
+O código não fecha a conexão com o banco de dados após o uso, o que pode causar vazamento de recursos. Para evitar isso, é aconselhável utilizar o recurso `try-with-resources` ou garantir o fechamento da conexão em um bloco `finally`.
+
+- 3 Validação de Entradas
+O código não valida as entradas dos parâmetros `login` e `senha`, o que pode permitir o envio de valores inválidos ou tendenciosos. Para resolver isso, é necessário validar as entradas antes de processá-las, garantindo que não sejam nulas ou vazias.
+
+- 4 Tratamento de Conexão Nula
+Não há um tratamento adequado para o caso de a conexão com o banco não ser estabelecida corretamente. 
+
+- 5 Inicialização da Variável `nome`
+A variável `nome`, que armazena o nome do usuário retornado pela consulta SQL, pode não ser inicializada caso a consulta não retorne nenhum resultado, o que pode causar problemas em outras partes do código.
